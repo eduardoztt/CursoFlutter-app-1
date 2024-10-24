@@ -6,46 +6,50 @@ main() => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual a sua cor favorita?',
       'respostas': [
-        {'texto': 'Amarelo', 'nota': '10'},
-        {'texto': 'Azul', 'nota': '5'},
-        {'texto': 'Vermelho', 'nota': '10'},
-        {'texto': 'Preto', 'nota': '5'},
-        {'texto': 'Roxo', 'nota': '3'},
+        {'texto': 'Amarelo', 'pontuacao': 10},
+        {'texto': 'Azul', 'pontuacao': 5},
+        {'texto': 'Vermelho', 'pontuacao': 10},
+        {'texto': 'Preto', 'pontuacao': 5},
+        {'texto': 'Roxo', 'pontuacao':3},
       ],
     },
     {
       'texto': 'Qual o seu animal favorito?',
       'respostas': [
-        {'texto': 'Eguá', 'nota': '5'},
-        {'texto': 'Camelo', 'nota': '5'},
-        {'texto': 'Tatu Bola', 'nota': '3'},
-        {'texto': 'Farfus', 'nota': '10'},
-        {'texto': 'gato', 'nota': '3'},
+        {'texto': 'Eguá', 'pontuacao': 5},
+        {'texto': 'Camelo', 'pontuacao': 5},
+        {'texto': 'Tatu Bola', 'pontuacao': 3},
+        {'texto': 'Farfus', 'pontuacao': 100},
+        {'texto': 'gato', 'pontuacao': 3},
       ],
     },
     {
       'texto': 'Qual o melhor Veiculo',
       'respostas': [
-        {'texto': 'fusca', 'nota': '3'},
-        {'texto': 'boing', 'nota': '5'},
-        {'texto': 'Titanic', 'nota': '1'},
-        {'texto': 'bicikreta', 'nota': '3'},
-        {'texto': 'camelo', 'nota': '10'},
+        {'texto': 'fusca', 'pontuacao': 3},
+        {'texto': 'boing', 'pontuacao': 5},
+        {'texto': 'Titanic', 'pontuacao': 1},
+        {'texto': 'bicikreta', 'pontuacao': 3},
+        {'texto': 'camelo', 'pontuacao': 10},
       
       ],
     }
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPeguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
       });
     }
+
+    print(_pontuacaoTotal);
   }
 
   bool get temPeguntaSelecionada {
@@ -72,8 +76,8 @@ class _PerguntaAppState extends State<PerguntaApp> {
               ? Questionario(
                   perguntaSelecionada: _perguntaSelecionada,
                   perguntas: _perguntas,
-                  responder: _responder)
-              : Resultado()),
+                  quandoResponder: _responder)
+              : Resultado(_pontuacaoTotal)),
     );
   }
 }
